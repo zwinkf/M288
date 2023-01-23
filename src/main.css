@@ -50,7 +50,7 @@ h1.title {
 .container,
 .form__input,
 .form__button {
-    font: 500 1rem 'Quicksand', sans-serif;
+    font: 500 1rem 'Poppins', sans-serif;
 }
 
 .form--hidden {
@@ -119,6 +119,7 @@ h1.title {
 .form__button {
     width: 100%;
     padding: 1rem 2rem;
+    margin-bottom: 10px;
     font-weight: bold;
     font-size: 1.1rem;
     color: white;
@@ -137,8 +138,9 @@ h1.title {
     transform: scale(0.98);
 }
 
-.form__text {
+p.form__text {
     text-align: center;
+    margin-bottom: 0;
 }
 
 .form__link {
