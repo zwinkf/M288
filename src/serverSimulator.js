@@ -7,7 +7,7 @@ let userList = new Array();
  * @return User Objekt als JSON falls vorhanden, null wenn User nicht existiert. */
 function findUser(username, email) {
     for (let i = 0; i < userList.length; i++) {
-        if(userList[i].username==username || userList[i].email==email)
+        if(userList[i].user.username==username || userList[i].user.email==email)
             return userList[i];
     }
     return null;
@@ -26,8 +26,8 @@ function login(jsonReq) {
     let existingUser = findUser(jsonReq.usernameOrEmail, jsonReq.usernameOrEmail);
     /** Anpassen JSON Response je nachdem ob Login erfolgreich oder nicht. */
     if (existingUser != null &&
-        ((jsonReq.usernameOrEmail==existingUser.username || jsonReq.usernameOrEmail==existingUser.email)
-            && jsonReq.password==existingUser.password)){
+        ((jsonReq.usernameOrEmail==existingUser.user.username || jsonReq.usernameOrEmail==existingUser.user.email)
+            && jsonReq.password==existingUser.user.password)){
         jsonResp.messsage = "Login with user '"+jsonReq.usernameOrEmail+"' was successful!";
     } else {
         jsonResp.responsecode = "ERROR";
@@ -45,17 +45,17 @@ function createAccount(jsonReq) {
         "messsage": ""
     };
     /** Suchen User in DB, Suchen mit username oder email */
-    let existingUser = findUser(jsonReq.username, jsonReq.email);
+    let existingUser = findUser(jsonReq.user.username, jsonReq.user.email);
     /** Anpassen JSON Response je nachdem ob Erstellung User Account erfolgreich oder nicht. */
     if(existingUser==null) {
         /** erstelle neuen Benutzer in Liste */
         userList.push(jsonReq);
     } else {
         jsonResp.responsecode = "ERROR";
-        if (existingUser.username==jsonReq.username)
-            jsonResp.messsage = "User "+jsonReq.username+" already exists!";
+        if (existingUser.user.username==jsonReq.user.username)
+            jsonResp.messsage = "User "+jsonReq.user.username+" already exists!";
         else
-            jsonResp.messsage = "User with "+jsonReq.email+" already exists!";
+            jsonResp.messsage = "User with "+jsonReq.user.email+" already exists!";
     }
     // Rückgabe JSON Response */
     return jsonResp;

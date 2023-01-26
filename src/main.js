@@ -195,16 +195,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if(validateCreateAccountForm()) {
             /** Erstellen JSON Request */
             let jsonReq = {
-                "username": createAccountForm.querySelector("#signupUsername").value,
-                "email": createAccountForm.querySelector("#signupEmail").value,
-                "password": createAccountForm.querySelector("#signupPassword").value
+                "user": {
+                    "username": createAccountForm.querySelector("#signupUsername").value,
+                    "email": createAccountForm.querySelector("#signupEmail").value,
+                    "password": createAccountForm.querySelector("#signupPassword").value
+                }
             }
             /** Aufruf Login Funktion am Server mit Übergabe JSON Request */
             const jsonResp = createAccount(jsonReq);
             /** Auswerten JSON Response und Anzeigen Meldung */
             if (jsonResp.responsecode == "OK") {
                 createAccountForm.reset();
-                setFormMessage(createAccountForm, "success", "Account '"+jsonReq.username+"' has been created, please return to login page an login.");
+                setFormMessage(createAccountForm, "success", "Account '"+jsonReq.user.username+"' has been created, please return to login page an login.");
             }
             else
                 setFormMessage(createAccountForm, "error", jsonResp.messsage);
